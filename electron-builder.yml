@@ -1,0 +1,4 @@
+appId: electron-project
+publish:
+  provider: github
+  token: [YOUR GITHUB ACCESS TOKEN]
