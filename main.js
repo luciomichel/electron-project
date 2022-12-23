@@ -5,6 +5,8 @@ let mainWindow;
 
 function createWindow () {
 
+  console.log("Criando Tela ")
+
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
@@ -14,11 +16,13 @@ function createWindow () {
   });
   
   mainWindow.loadFile('index.html');
+
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
 
   mainWindow.once('ready-to-show', () => {
+    console.log("Verificando versão...")
     autoUpdater.checkForUpdatesAndNotify();
   });
 }
@@ -28,9 +32,11 @@ app.on('ready', () => {
 });
 
 app.on('window-all-closed', function () {
+  console.log("fechando")
   if (process.platform !== 'darwin') {
     app.quit();
   }
+  
 });
 
 app.on('activate', function () {
@@ -40,6 +46,7 @@ app.on('activate', function () {
 });
 
 ipcMain.on('app_version', (event) => {
+  console.log("Versão", app.getVersion());
   event.sender.send('app_version', { version: app.getVersion() });
 });
 
@@ -54,3 +61,9 @@ autoUpdater.on('update-available', () => {
 autoUpdater.on('update-downloaded', () => {
     mainWindow.webContents.send('update_downloaded');
 });
+
+autoUpdater.on('error', (message) => {
+  mainWindow.webContents.send(message);
+  console.error('There was a problem updating the application')
+  console.error(message)
+})
