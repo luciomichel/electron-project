@@ -31,6 +31,12 @@
         "repo": "electron-project",
         "private": false
       }
-    ]
+    ],
+    "linux": {
+      "category": "Utility",
+      "publish": [
+        "github"
+      ]
+    }
   }
 }
