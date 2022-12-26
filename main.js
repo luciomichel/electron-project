@@ -18,7 +18,7 @@ function createWindow() {
     win.loadFile(path.join(__dirname, 'index.html'))
 }
 
-autoUpdater.autoDownload = false;
+autoUpdater.autoDownload = true;
 
 app.on('ready', () => {
     createWindow();
@@ -33,15 +33,7 @@ app.on('app_version', (event) => {
 
 autoUpdater.on('update-available', () => {
     log.info('update-available')
-    dialog.showMessageBox({
-        type: 'info',
-        title: 'Nova versão disponível',
-        message: 'Deseja realizar o download da versão agora?',
-        buttons: ['Sim', 'Não']
-    }).then(result => {
-        let buttonIndex = result.response
-        if (buttonIndex === 0) autoUpdater.downloadUpdate()
-    });
+    //autoUpdater.downloadUpdate()
 })
 
 autoUpdater.on('update-not-available', () => {
