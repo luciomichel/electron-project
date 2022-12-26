@@ -8,7 +8,13 @@ log.info('Versão da aplicação = ' + app.getVersion())
 let win;
 
 function createWindow() {
-    win = new BrowserWindow({width: 300, height: 400})
+    win = new BrowserWindow({
+      width: 800,
+      height: 600,
+      webPreferences: {
+        nodeIntegration: true,
+      },
+    });
     win.loadFile(path.join(__dirname, 'index.html'))
 }
 
@@ -20,6 +26,10 @@ app.on('ready', () => {
         return log.info('finalizou check update');
     })
 })
+
+app.on('app_version', (event) => {
+  event.sender.send('app_version', { version: app.getVersion() });
+});
 
 autoUpdater.on('update-available', () => {
     log.info('update-available')
