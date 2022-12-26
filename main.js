@@ -18,7 +18,7 @@ function createWindow() {
     win.loadFile(path.join(__dirname, 'index.html'))
 }
 
-autoUpdater.autoDownload = true;
+autoUpdater.autoDownload = false;
 
 app.on('ready', () => {
     createWindow();
@@ -33,7 +33,7 @@ app.on('app_version', (event) => {
 
 autoUpdater.on('update-available', () => {
     log.info('update-available')
-    //autoUpdater.downloadUpdate()
+    autoUpdater.downloadUpdate()
 })
 
 autoUpdater.on('update-not-available', () => {
